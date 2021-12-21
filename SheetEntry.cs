@@ -1,0 +1,6 @@
+
+namespace SystemInterrogator{
+    class SheetEntry{
+        
+    }
+}

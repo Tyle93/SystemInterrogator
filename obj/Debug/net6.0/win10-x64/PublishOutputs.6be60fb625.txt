@@ -1,0 +1,2 @@
+C:\Projects\c#\SystemInterrogator\bin\Debug\net6.0\win10-x64\publish\SystemInterrogator.pdb
+C:\Projects\c#\SystemInterrogator\bin\Debug\net6.0\win10-x64\publish\SystemInterrogator.exe
