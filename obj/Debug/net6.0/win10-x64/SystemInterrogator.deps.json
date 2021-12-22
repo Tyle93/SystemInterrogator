@@ -10,6 +10,7 @@
       "SystemInterrogator/1.0.0": {
         "dependencies": {
           "Google.Apis.Sheets.v4": "1.55.0.2371",
+          "System.CodeDom": "6.0.0",
           "System.Management": "6.0.0",
           "runtimepack.Microsoft.NETCore.App.Runtime.win-x64": "6.0.0"
         },
