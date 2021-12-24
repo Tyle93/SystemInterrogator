@@ -22,8 +22,7 @@ string UTGVersion = "";
 int FPOSMajorVersion;
 
 try{
-    Console.WriteLine(UTGRegPath + "\t" + UTGRegValueName);
-    UTGInstallPath = (string?)Registry.GetValue(UTGRegPath,UTGRegValueName, "Value not found");
+    UTGInstallPath = (string?)Registry.GetValue(UTGRegPath,UTGRegValueName, null);
     if(UTGInstallPath == null){
         UTGInstallPath = "Not Installed";
         Console.WriteLine("UTG NOT INSTALLED.");
@@ -129,7 +128,7 @@ rd.Add(TotalSystemMemory);
 
 string[] scopes = {SheetsService.Scope.Spreadsheets};
 string ApplicationName = "System Audit";
-
+string credPath = "../../APIKeys";
 string credJsonString = @"{}";
 
 var cred = GoogleCredential.FromStream(new MemoryStream(System.Text.Encoding.ASCII.GetBytes(credJsonString)));
