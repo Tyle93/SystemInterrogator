@@ -1,7 +1,7 @@
 using Microsoft.Win32;
 using System.Diagnostics;
-namespace FutureRegistry{
-    public static class Entries{
+namespace Future{
+    public static class RegistryEntry{
         static readonly string FPOSRegPath = "HKEY_LOCAL_MACHINE\\SOFTWARE\\WOW6432Node\\Future P.O.S.\\DIRECTORIES\\";
         static readonly string UTGRegPath = "HKEY_LOCAL_MACHINE\\SOFTWARE\\WOW6432Node\\Shift4 Corporation\\";
         static readonly string UTGRegValueName = "Installation Path";
@@ -12,24 +12,23 @@ namespace FutureRegistry{
         static readonly string FPOSVersion;
         static readonly string UTGVersion;
         static readonly int FPOSVersionMajor;
-        static Entries(){
+        static RegistryEntry(){
             UTGInstallPath  = (string?)Registry.GetValue(UTGRegPath,UTGRegValueName, null);
             FPOSInstallPath = (string?)Registry.GetValue(FPOSRegPath,FPOSRegValueName, null);
             try{
-                try{
-                    FPOSVersionInfo = FileVersionInfo.GetVersionInfo(FPOSInstallPath ?? "");
-                }catch(FileNotFoundException ex){
-                    Console.Error.WriteLine(ex.Message);
-                    FPOSVersionInfo = null;
-                }
-                FPOSVersion = FPOSVersionInfo?.FileVersion ?? "N/a";
-                FPOSVersionMajor = FPOSVersionInfo.FileMajorPart;
+                FPOSVersionInfo = FileVersionInfo.GetVersionInfo(FPOSInstallPath ?? "");
+            }catch(FileNotFoundException ex){
+                Console.Error.WriteLine(ex.Message);
+                FPOSVersionInfo = null;
+            }
+            try{
                 UTGVersion = FileVersionInfo.GetVersionInfo(UTGInstallPath ?? "").FileVersion ?? "N/a";
             }catch(FileNotFoundException ex){
-                Console.WriteLine(ex.Message);
-            }catch(Exception e){
-                Console.Error.WriteLine(e.Message);
+                Console.Error.WriteLine(ex.Message);
+                UTGVersion = "N/a";
             }
+            FPOSVersion = FPOSVersionInfo?.FileVersion ?? "N/a";
+            FPOSVersionMajor = FPOSVersionInfo?.FileMajorPart ?? 6;
         }
     }
     public static class Util{

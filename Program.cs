@@ -8,6 +8,16 @@ using System.Management;
 using Newtonsoft.Json.Linq;
 using System.Text;
 using System.Diagnostics;
+using System.Windows;
+using System.Runtime.InteropServices;
+
+//TODO: FIGURE OUT HOW TO EXTRACT STORE NAME FROM LOGIN DIALOG.
+[DllImport("user32.dll", CharSet=CharSet.Unicode)]
+static extern IntPtr FindWindowEx(IntPtr parentHandle, IntPtr childAfter, string lclassName, string windowTitle); 
+[DllImport("user32.dll", SetLastError = true)]
+static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+Process[] p = Process.GetProcessesByName("fposmenu");
+IntPtr h = p[0].Handle;
 
 string FPOSRegPath = "HKEY_LOCAL_MACHINE\\SOFTWARE\\WOW6432Node\\Future P.O.S.\\DIRECTORIES\\";
 string UTGRegPath = "HKEY_LOCAL_MACHINE\\SOFTWARE\\WOW6432Node\\Shift4 Corporation\\";
@@ -101,7 +111,7 @@ try{
 List<string> rd = new List<string>();
 rd.Add(Environment.MachineName);
 if(File.Exists(SqlcmdOutputFilePath)){
-    Console.WriteLine($"Path: {SqlcmdOutputFilePath} exists.");
+    //Console.WriteLine($"Path: {SqlcmdOutputFilePath} exists.");
     rd.AddRange(File.ReadAllText(SqlcmdOutputFilePath,System.Text.Encoding.UTF8).Split(',').ToList());
     rd.Add(FPOSVersion);
     rd.Add(UTGVersion);
@@ -112,25 +122,26 @@ if(File.Exists(SqlcmdOutputFilePath)){
 
 string TotalSystemMemory = "N/a";
 
-try{
-    ObjectQuery wql = new ObjectQuery("SELECT * FROM Win32_OperatingSystem");
-    ManagementObjectSearcher searcher =  new ManagementObjectSearcher(wql);
-    ManagementObjectCollection results = searcher.Get();
-    foreach(var s in results){
-        string? bytes = s["TotalPhysicalMemory"].ToString();
-        TotalSystemMemory = Math.Round((Double.Parse(bytes ?? "0") / (1024*1024)),2).ToString() + "GB";
-    }
-}catch(Exception e){
-    Console.WriteLine(e.Message);
-}
+//TODO: FIX THIS!
+//try{
+//    ObjectQuery wql = new ObjectQuery("SELECT * FROM Win32_OperatingSystem");
+//    ManagementObjectSearcher searcher =  new ManagementObjectSearcher(wql);
+//    ManagementObjectCollection results = searcher.Get();
+//    foreach(var s in results){
+//        string? bytes = s["TotalPhysicalMemory"].ToString();
+//        TotalSystemMemory = Math.Round((Double.Parse(bytes ?? "0") / (1024*1024)),2).ToString() + "GB";
+//    }
+//}catch(Exception e){
+//    Console.WriteLine(e.Message);
+//}
 
 rd.Add(TotalSystemMemory);
 
 string[] scopes = {SheetsService.Scope.Spreadsheets};
 string ApplicationName = "System Audit";
-string credPath = "../../APIKeys";
+//string credPath = "../../APIKeys";
 string credJsonString = @"{}";
-
+//var cred = GoogleCredential.FromSteam(File.Create(credPath));
 var cred = GoogleCredential.FromStream(new MemoryStream(System.Text.Encoding.ASCII.GetBytes(credJsonString)));
 
 var service = new SheetsService(new BaseClientService.Initializer(){
@@ -138,28 +149,11 @@ var service = new SheetsService(new BaseClientService.Initializer(){
                 ApplicationName = ApplicationName,
 });
 
-AppendCellsRequest acp = new AppendCellsRequest();
-RowData row = new RowData();
-row.Values = new List<CellData>();
+RowData row = Google.Util.toRowData(rd);
+Request req = Google.Util.InitAppendCellsRequest(row);
+
 string SpreadSheetID = "1_y4Jg-J4X8n3DexV9hDoLkx8w2e0HJPVztPqiavv0YI";
 
-foreach(string cd in rd){   
-    CellData cell = new CellData();
-    cell.UserEnteredValue = new ();
-    cell.UserEnteredValue.StringValue = cd;
-    row.Values.Add(cell);
-}
-
-acp.Rows = new List<RowData>();
-acp.Rows.Add(row);
-acp.Fields = "*";
-acp.SheetId = 0;
-
-BatchUpdateSpreadsheetRequest batch = new BatchUpdateSpreadsheetRequest();
-Request req = new Request();
-
-req.AppendCells = acp;
-batch.Requests = new List<Request>();
-batch.Requests.Add(req);
+BatchUpdateSpreadsheetRequest batch = Google.Util.CreateBatchUpdateRequest(req);
 
 service.Spreadsheets.BatchUpdate(batch,SpreadSheetID).Execute();
