@@ -1,6 +1,0 @@
-
-namespace SystemInterrogator{
-    class SheetEntry{
-        
-    }
-}

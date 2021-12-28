@@ -140,7 +140,10 @@ rd.Add(TotalSystemMemory);
 string[] scopes = {SheetsService.Scope.Spreadsheets};
 string ApplicationName = "System Audit";
 //string credPath = "../../APIKeys";
-string credJsonString = @"{}";
+string credJsonString = @"{
+
+    
+}";
 //var cred = GoogleCredential.FromSteam(File.Create(credPath));
 var cred = GoogleCredential.FromStream(new MemoryStream(System.Text.Encoding.ASCII.GetBytes(credJsonString)));
 
