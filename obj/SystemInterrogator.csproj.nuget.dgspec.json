@@ -47,6 +47,10 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "ComputerInfo": {
+              "target": "Package",
+              "version": "[0.2.0-prerelease, )"
+            },
             "Google.Apis.Sheets.v4": {
               "target": "Package",
               "version": "[1.55.0.2371, )"

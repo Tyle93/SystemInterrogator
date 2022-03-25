@@ -7,6 +7,7 @@ using System.Management;
 using Newtonsoft.Json.Linq;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using NickStrupat;
 
 if(!RuntimeInformation.IsOSPlatform(OSPlatform.Windows)){
     Console.Error.WriteLine("Platform not supported.");
@@ -46,23 +47,27 @@ if(File.Exists(SqlcmdOutputFilePath)){
     rd = new List<string>();
 }
 
+//Pray this works.
 string TotalSystemMemory = "N/a";
+ComputerInfo info = new ComputerInfo();
+TotalSystemMemory = Math.Round((double)(info.TotalPhysicalMemory / (1024*1024)),2).ToString() + "GB";
+
 
 //TODO: FIX THIS!
-try{
-    ObjectQuery wql = new ObjectQuery("SELECT * FROM Win32_OperatingSystem");
-    ManagementObjectSearcher searcher =  new ManagementObjectSearcher(wql);
-    ManagementObjectCollection results = searcher.Get();
-    foreach(var s in results){
-        double res = Convert.ToDouble(s["TotalVisibleMemorySize"]);
-        res = Math.Round((res / (1024*1024)),2);
-                Console.WriteLine("Total usable memory size: "+ TotalSystemMemory +"GB");
-        TotalSystemMemory = res.ToString();
-
-    }
-}catch(Exception e){
-    Console.WriteLine(e.StackTrace);
-}
+//try{
+//    ObjectQuery wql = new ObjectQuery("SELECT * FROM Win32_OperatingSystem");
+//    ManagementObjectSearcher searcher =  new ManagementObjectSearcher(wql);
+//    ManagementObjectCollection results = searcher.Get();
+//    foreach(var s in results){
+//        double res = Convert.ToDouble(s["TotalVisibleMemorySize"]);
+//        res = Math.Round((res / (1024*1024)),2);
+//                Console.WriteLine("Total usable memory size: "+ TotalSystemMemory +"GB");
+//        TotalSystemMemory = res.ToString();
+//
+//    }
+//}catch(Exception e){
+//    Console.WriteLine(e.StackTrace);
+//}
 
 rd.Add(TotalSystemMemory);
 

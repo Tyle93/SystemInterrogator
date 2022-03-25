@@ -245,3 +245,5 @@ C:\Projects\c#\SystemInterrogator\obj\Debug\net6.0\win10-x64\SystemInterrogator.
 C:\Projects\c#\SystemInterrogator\bin\Debug\net6.0\win10-x64\System.Data.SqlClient.dll
 C:\Projects\c#\SystemInterrogator\bin\Debug\net6.0\win10-x64\sni.dll
 C:\Projects\c#\SystemInterrogator\bin\Debug\net6.0\win10-x64\mscordaccore_amd64_amd64_6.0.121.56705.dll
+C:\Projects\c#\SystemInterrogator\bin\Debug\net6.0\win10-x64\ComputerInfo.dll
+C:\Projects\c#\SystemInterrogator\bin\Debug\net6.0\win10-x64\Microsoft.DotNet.PlatformAbstractions.dll
