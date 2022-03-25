@@ -2,18 +2,24 @@ using System.Xml;
 using System.Data.SqlClient;
 using System.Collections.ObjectModel;
 using System.Data.Common;
+
 namespace Future{
     public static class DBConnection{
-        private static string DBName;
+        private static string? DBName;
         private static string DBInfoPath = "C:\\FPOS\\Data\\dbinfo.xml";
         private static string ConnectionString;
         private static SqlConnection conn;
-        private static string getDBName(string dbInfoFilePath){
-            FileStream xmlstream = File.Create(dbInfoFilePath);
-            XmlDocument xml = new XmlDocument();
-            xml.Load(xmlstream);
-            XmlNode? node = xml.SelectSingleNode("/db/ServerDatabase");
-            return node?.InnerText ?? "";    
+        private static string? getDBName(string dbInfoFilePath){
+            XmlNode? node = null;
+            try{
+                FileStream xmlstream = File.Create(dbInfoFilePath);
+                XmlDocument xml = new XmlDocument();
+                xml.Load(xmlstream);
+                node = xml.SelectSingleNode("/db/ServerDatabase");
+            }catch(Exception e){
+                Console.Error.WriteLine(e.Message);
+            }   
+            return node?.InnerText;    
         }
         static DBConnection(){
             DBName = getDBName(DBInfoPath);
@@ -38,9 +44,9 @@ namespace Future{
         }
     }
     public class DBResult{
-        private Dictionary<string,string> result {get;}
+        private Dictionary<string,string> result;
         private List<string> columnNames = new List<string>();
-        public DBResult(ReadOnlyCollection<DbColumn> cols, List<Object> row ){
+        public DBResult(in ReadOnlyCollection<DbColumn> cols,in List<Object> row ){
             result = new Dictionary<string, string>();
             for(int i = 0; i < cols.Count; i++){
                 result[cols[i].ColumnName] = (string)row[i]; 

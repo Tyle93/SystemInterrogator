@@ -1,51 +1,46 @@
 using Microsoft.Win32;
 using System.Diagnostics;
-namespace Future{
+namespace Future.Registry{
+    public static class RegistryEntry{
+        public static readonly string FPOSRegPath = "HKEY_LOCAL_MACHINE\\SOFTWARE\\WOW6432Node\\Future P.O.S.\\DIRECTORIES\\";
+        public static readonly string UTGRegPath = "HKEY_LOCAL_MACHINE\\SOFTWARE\\WOW6432Node\\Shift4 Corporation\\";
+        public static readonly string UTGRegValueName = "Installation Path";
+        public static readonly string FPOSRegValueName = "FPOS Directory";
+        public static readonly string? UTGInstallPath;
+        public static readonly string? FPOSInstallPath;
+        public static readonly FileVersionInfo? FPOSVersionInfo;
+        public static readonly string FPOSVersion;
+        public static readonly string UTGVersion;
+        public static readonly int? FPOSVersionMajor;
+        public static readonly string InstanceName;
+        static RegistryEntry(){
 
-    namespace Registry{
-        public static class RegistryEntry{
-            static readonly string FPOSRegPath = "HKEY_LOCAL_MACHINE\\SOFTWARE\\WOW6432Node\\Future P.O.S.\\DIRECTORIES\\";
-            static readonly string UTGRegPath = "HKEY_LOCAL_MACHINE\\SOFTWARE\\WOW6432Node\\Shift4 Corporation\\";
-            static readonly string UTGRegValueName = "Installation Path";
-            static readonly string FPOSRegValueName = "FPOS Directory";
-            static readonly string? UTGInstallPath;
-            static readonly string? FPOSInstallPath;
-            private static readonly FileVersionInfo? FPOSVersionInfo;
-            static readonly string FPOSVersion;
-            static readonly string UTGVersion;
-            static readonly int FPOSVersionMajor;
-            static RegistryEntry(){
-                UTGInstallPath  = (string?)Microsoft.Win32.Registry.GetValue(UTGRegPath,UTGRegValueName, null);
-                FPOSInstallPath = (string?)Microsoft.Win32.Registry.GetValue(FPOSRegPath,FPOSRegValueName, null);
-                try{
-                    FPOSVersionInfo = FileVersionInfo.GetVersionInfo(FPOSInstallPath ?? "");
-                }catch(FileNotFoundException ex){
-                    Console.Error.WriteLine(ex.Message);
-                    FPOSVersionInfo = null;
-                }
-                try{
-                    UTGVersion = FileVersionInfo.GetVersionInfo(UTGInstallPath ?? "").FileVersion ?? "N/a";
-                }catch(FileNotFoundException ex){
-                    Console.Error.WriteLine(ex.Message);
-                    UTGVersion = "N/a";
-                }
-                FPOSVersion = FPOSVersionInfo?.FileVersion ?? "N/a";
-                FPOSVersionMajor = FPOSVersionInfo?.FileMajorPart ?? 6;
+            UTGInstallPath  = (string?)Microsoft.Win32.Registry.GetValue(UTGRegPath,UTGRegValueName, null);
+            try{
+                UTGVersion = FileVersionInfo.GetVersionInfo(UTGInstallPath ?? "").FileVersion ?? "N/a";
+            }catch(FileNotFoundException ex){
+                Console.Error.WriteLine(ex.Message);
+                UTGVersion = "N/a";
             }
+            FPOSInstallPath = (string?)Microsoft.Win32.Registry.GetValue(FPOSRegPath,FPOSRegValueName, null);
+            try{
+                FPOSVersionInfo = FileVersionInfo.GetVersionInfo(FPOSInstallPath ?? "");
+            }catch(FileNotFoundException ex){
+                Console.Error.WriteLine(ex.Message);
+                FPOSVersionInfo = null;
+            }
+            FPOSVersion = FPOSVersionInfo?.FileVersion ?? "N/a";
+            FPOSVersionMajor = FPOSVersionInfo?.FileMajorPart ?? null;
+            InstanceName = FPOSVersionMajor switch {
+                5 => "FPOSSQL",
+                6 => "CESSQL",
+                _ => " ",
+            };
         }
-        public static class Util{
-            public static string? getFPOSPath(){
-                return null;
-            }
-            public static string? getFPOSVersion(){
-                return null;
-            }
-            static Util(){
-
-            }
-            public static string getServerName(){
-                return "";
-            }
-        }   
+    }
+    public static class Util{
+        public static string? getServerName(){
+            return $"{Environment.MachineName}\\{RegistryEntry.InstanceName}";
+        }
     }
 }

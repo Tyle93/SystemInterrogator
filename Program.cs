@@ -2,88 +2,15 @@
 using Google.Apis.Sheets.v4;
 using Google.Apis.Sheets.v4.Data;
 using Google.Apis.Services;
-using Google.Apis.Util.Store;
 using Microsoft.Win32;
 using System.Management;
 using Newtonsoft.Json.Linq;
-using System.Text;
 using System.Diagnostics;
-using System.Windows;
 using System.Runtime.InteropServices;
 
-//TODO: FIGURE OUT HOW TO EXTRACT STORE NAME FROM LOGIN DIALOG.
-[DllImport("user32.dll", CharSet=CharSet.Unicode)]
-static extern IntPtr FindWindowEx(IntPtr parentHandle, IntPtr childAfter, string lclassName, string windowTitle); 
-[DllImport("user32.dll", SetLastError = true)]
-static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
-Process[] p = Process.GetProcessesByName("fposmenu");
-IntPtr h = p[0].Handle;
-
-string FPOSRegPath = "HKEY_LOCAL_MACHINE\\SOFTWARE\\WOW6432Node\\Future P.O.S.\\DIRECTORIES\\";
-string UTGRegPath = "HKEY_LOCAL_MACHINE\\SOFTWARE\\WOW6432Node\\Shift4 Corporation\\";
-string UTGRegValueName = "Installation Path";
-string FPOSRegVauleName = "FPOS Directory";
-string? UTGInstallPath;
-string? FPOSInstallPath;
-string InstanceName = "";
-string ServerName = Environment.MachineName;
-string FPOSVersion = "";
-string UTGVersion = "";
-int FPOSMajorVersion;
-
-try{
-    UTGInstallPath = (string?)Registry.GetValue(UTGRegPath,UTGRegValueName, null);
-    if(UTGInstallPath == null){
-        UTGInstallPath = "Not Installed";
-        Console.WriteLine("UTG NOT INSTALLED.");
-        UTGVersion = "N/a";
-    }else{
-        UTGInstallPath += "\\UTG2\\UTG2.exe";
-        try{
-            UTGVersion = FileVersionInfo.GetVersionInfo(UTGInstallPath).FileVersion ?? "N/a";
-            Console.WriteLine($"UTG VERSION: {UTGVersion}");
-        }catch(FileNotFoundException e){
-            Console.Error.WriteLine(e.Message);
-            Console.WriteLine("UTG Executable Not Found.");
-        }
-        
-    }
-}catch(ArgumentException e){
-    Console.Error.WriteLine(e.Message);
-    Console.WriteLine("Invalid UTG Registry Path.");
-}
-
-try{
-    FPOSInstallPath = (string?)Registry.GetValue(FPOSRegPath,FPOSRegVauleName, "Value not found.");
-    if(FPOSInstallPath == null){
-        FPOSInstallPath = "Not Installed";
-        Console.WriteLine("FPOS NOT INSTALLED.");
-        FPOSVersion = "N/a";
-    }else{
-        FPOSInstallPath += "\\bin\\FPOS.exe";
-        try{
-            FileVersionInfo FPOSVer = FileVersionInfo.GetVersionInfo(FPOSInstallPath);
-            FPOSMajorVersion =  FPOSVer.FileMajorPart;
-            FPOSVersion = FPOSVer.FileVersion ?? "N/a";
-            Console.WriteLine($"FPOS VERSION: {FPOSVersion}");
-            switch(FPOSMajorVersion){
-                case 5:
-                    InstanceName = "CESSQL";
-                    break;
-                case 6:
-                    InstanceName = "FPOSSQL";
-                    break;
-                default:
-                    InstanceName = "FPOSSQL";
-                    break;
-            }
-        }catch(FileNotFoundException e){
-            Console.Error.WriteLine(e.Message);
-            Console.WriteLine("FPOS Executable Not Found");
-        }
-    }
-}catch(ArgumentException){
-    Console.WriteLine("Invalid FPOS Registry Path.");
+if(!RuntimeInformation.IsOSPlatform(OSPlatform.Windows)){
+    Console.Error.WriteLine("Platform not supported.");
+    Environment.Exit(1);
 }
 
 string QueryString = @"
@@ -99,7 +26,7 @@ string QueryString = @"
 
 string CurrentUser = Environment.UserName;
 string SqlcmdOutputFilePath = "./Sqloutput.csv";
-string PSCommand = $" -S {ServerName}\\{InstanceName} -Q {QueryString} -o {SqlcmdOutputFilePath} -W -h -1 -s \",\"";
+string PSCommand = $" -S {Future.Registry.Util.getServerName}-Q {QueryString} -o {SqlcmdOutputFilePath} -W -h -1 -s \",\"";
 File.Create($".\\{SqlcmdOutputFilePath}").Close();
 
 try{
@@ -111,10 +38,9 @@ try{
 List<string> rd = new List<string>();
 rd.Add(Environment.MachineName);
 if(File.Exists(SqlcmdOutputFilePath)){
-    //Console.WriteLine($"Path: {SqlcmdOutputFilePath} exists.");
     rd.AddRange(File.ReadAllText(SqlcmdOutputFilePath,System.Text.Encoding.UTF8).Split(',').ToList());
-    rd.Add(FPOSVersion);
-    rd.Add(UTGVersion);
+    rd.Add(Future.Registry.RegistryEntry.FPOSVersion);
+    rd.Add(Future.Registry.RegistryEntry.UTGVersion);
 }else{
     Console.WriteLine($"Path: {SqlcmdOutputFilePath} does not exitst.");
     rd = new List<string>();
@@ -123,26 +49,27 @@ if(File.Exists(SqlcmdOutputFilePath)){
 string TotalSystemMemory = "N/a";
 
 //TODO: FIX THIS!
-//try{
-//    ObjectQuery wql = new ObjectQuery("SELECT * FROM Win32_OperatingSystem");
-//    ManagementObjectSearcher searcher =  new ManagementObjectSearcher(wql);
-//    ManagementObjectCollection results = searcher.Get();
-//    foreach(var s in results){
-//        string? bytes = s["TotalPhysicalMemory"].ToString();
-//        TotalSystemMemory = Math.Round((Double.Parse(bytes ?? "0") / (1024*1024)),2).ToString() + "GB";
-//    }
-//}catch(Exception e){
-//    Console.WriteLine(e.Message);
-//}
+try{
+    ObjectQuery wql = new ObjectQuery("SELECT * FROM Win32_OperatingSystem");
+    ManagementObjectSearcher searcher =  new ManagementObjectSearcher(wql);
+    ManagementObjectCollection results = searcher.Get();
+    foreach(var s in results){
+        TotalSystemMemory = Convert.ToDouble(s["TotalVisibleMemorySize"]);
+        TotalSystemMemory =Math.Round((TotalSystemMemory / (1024*1024)),2);
+                Console.WriteLine("Total usable memory size: "+ TotalSystemMemory +"GB");
+
+    }
+}catch(Exception e){
+    Console.WriteLine(e.StackTrace);
+}
 
 rd.Add(TotalSystemMemory);
 
 string[] scopes = {SheetsService.Scope.Spreadsheets};
 string ApplicationName = "System Audit";
-//string credPath = "../../APIKeys";
+//string credPath = "../../APIKeys/";
 string credJsonString = @"{
 
-    
 }";
 //var cred = GoogleCredential.FromSteam(File.Create(credPath));
 var cred = GoogleCredential.FromStream(new MemoryStream(System.Text.Encoding.ASCII.GetBytes(credJsonString)));

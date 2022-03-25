@@ -25,10 +25,10 @@ namespace Google{
         }
         public static Request InitAppendCellsRequest(){
             AppendCellsRequest acp = new ();
+            Request req = new Request();
             acp.Rows = new List<RowData>();
             acp.Fields = "*";
             acp.SheetId = 0;
-            Request req = new Request();
             req.AppendCells = acp;
             return req;
         }
