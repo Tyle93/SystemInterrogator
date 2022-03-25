@@ -20,7 +20,7 @@ string QueryString = @"
                 SERVERPROPERTY('productlevel') as 'Service Pack',
                 SERVERPROPERTY('edition') as 'Edition', 
                 SERVERPROPERTY('instancename') as 'Instance', 
-                SERVERPROPERTY('servername') as 'Server Name'
+                SERVERPROPERTY('servername') as 'Server Name'git pu
                 ""
 ";
 
@@ -54,9 +54,10 @@ try{
     ManagementObjectSearcher searcher =  new ManagementObjectSearcher(wql);
     ManagementObjectCollection results = searcher.Get();
     foreach(var s in results){
-        TotalSystemMemory = Convert.ToDouble(s["TotalVisibleMemorySize"]);
-        TotalSystemMemory =Math.Round((TotalSystemMemory / (1024*1024)),2);
+        double res = Convert.ToDouble(s["TotalVisibleMemorySize"]);
+        res = Math.Round((res / (1024*1024)),2);
                 Console.WriteLine("Total usable memory size: "+ TotalSystemMemory +"GB");
+        TotalSystemMemory = res.ToString();
 
     }
 }catch(Exception e){
