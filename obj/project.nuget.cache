@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "iqFWKnW0y34xnAwZd/zW+fo1aLNyZEdSSnxJ6hxMl5rkwbgBvdDSplkZv32ZfHAWgNxVuab/txbd/r7GxhPc4A==",
+  "dgSpecHash": "k0iQGBoiVkl/+dWUBwtnTU5FeQcmSNOP14kVvOuQ6mN8a0Fp9VqKSr/tXjrZsqoWBUBD01hxMDn7t/4WvvZiag==",
   "success": true,
   "projectFilePath": "C:\\Projects\\c#\\SystemInterrogator\\SystemInterrogator.csproj",
   "expectedPackageFiles": [
@@ -42,7 +42,7 @@
     "C:\\Users\\pluto\\.nuget\\packages\\system.io\\4.1.0\\system.io.4.1.0.nupkg.sha512",
     "C:\\Users\\pluto\\.nuget\\packages\\system.io.filesystem\\4.0.1\\system.io.filesystem.4.0.1.nupkg.sha512",
     "C:\\Users\\pluto\\.nuget\\packages\\system.io.filesystem.primitives\\4.0.1\\system.io.filesystem.primitives.4.0.1.nupkg.sha512",
-    "C:\\Users\\pluto\\.nuget\\packages\\system.management\\6.0.0\\system.management.6.0.0.nupkg.sha512",
+    "C:\\Users\\pluto\\.nuget\\packages\\system.management\\7.0.0-preview.2.22152.2\\system.management.7.0.0-preview.2.22152.2.nupkg.sha512",
     "C:\\Users\\pluto\\.nuget\\packages\\system.private.uri\\4.0.1\\system.private.uri.4.0.1.nupkg.sha512",
     "C:\\Users\\pluto\\.nuget\\packages\\system.reflection\\4.1.0\\system.reflection.4.1.0.nupkg.sha512",
     "C:\\Users\\pluto\\.nuget\\packages\\system.reflection.primitives\\4.0.1\\system.reflection.primitives.4.0.1.nupkg.sha512",
