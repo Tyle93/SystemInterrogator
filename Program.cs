@@ -21,7 +21,7 @@ string QueryString = @"
                 SERVERPROPERTY('productlevel') as 'Service Pack',
                 SERVERPROPERTY('edition') as 'Edition', 
                 SERVERPROPERTY('instancename') as 'Instance', 
-                SERVERPROPERTY('servername') as 'Server Name'git pu
+                SERVERPROPERTY('servername') as 'Server Name'
                 ""
 ";
 
