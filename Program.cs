@@ -37,7 +37,7 @@ try{
 List<string> rd = new List<string>();
 rd.Add("STORE NAME");
 rd.Add(Future.Registry.Util.getHostName());
-if(File.Exists(SqlcmdOutputFilePath) && new FileInfo(SqlcmdOutputFilePath).Length != 0){
+if(File.Exists(SqlcmdOutputFilePath)){
     rd.AddRange(File.ReadAllText(SqlcmdOutputFilePath,System.Text.Encoding.UTF8).Split(',').ToList());
     rd.Add(Future.Registry.RegistryEntry.FPOSVersion);
     rd.Add(Future.Registry.RegistryEntry.UTGVersion);
