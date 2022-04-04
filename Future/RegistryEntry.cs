@@ -37,7 +37,7 @@ namespace Future.Registry{
         private static void InitFPOS(){
             FPOSInstallPath = (string?)Microsoft.Win32.Registry.GetValue(FPOSRegPath,FPOSRegValueName, null);
             try{
-                FPOSVersionInfo = FileVersionInfo.GetVersionInfo(FPOSInstallPath ?? "");
+                FPOSVersionInfo = FileVersionInfo.GetVersionInfo(FPOSInstallPath+"\\bin\\fpos.exe" ?? "");
             }catch(Exception ex){
                 Console.Error.WriteLine(ex.Message);
                 FPOSVersionInfo = null;
