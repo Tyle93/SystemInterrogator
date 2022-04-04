@@ -4,14 +4,18 @@ C:\Projects\c#\SystemInterrogator\bin\Debug\net6.0\win10-x64\SystemInterrogator.
 C:\Projects\c#\SystemInterrogator\bin\Debug\net6.0\win10-x64\SystemInterrogator.dll
 C:\Projects\c#\SystemInterrogator\bin\Debug\net6.0\win10-x64\ref\SystemInterrogator.dll
 C:\Projects\c#\SystemInterrogator\bin\Debug\net6.0\win10-x64\SystemInterrogator.pdb
+C:\Projects\c#\SystemInterrogator\bin\Debug\net6.0\win10-x64\ComputerInfo.dll
 C:\Projects\c#\SystemInterrogator\bin\Debug\net6.0\win10-x64\Google.Apis.dll
 C:\Projects\c#\SystemInterrogator\bin\Debug\net6.0\win10-x64\Google.Apis.Auth.PlatformServices.dll
 C:\Projects\c#\SystemInterrogator\bin\Debug\net6.0\win10-x64\Google.Apis.Auth.dll
 C:\Projects\c#\SystemInterrogator\bin\Debug\net6.0\win10-x64\Google.Apis.Core.dll
 C:\Projects\c#\SystemInterrogator\bin\Debug\net6.0\win10-x64\Google.Apis.Sheets.v4.dll
+C:\Projects\c#\SystemInterrogator\bin\Debug\net6.0\win10-x64\Microsoft.DotNet.PlatformAbstractions.dll
 C:\Projects\c#\SystemInterrogator\bin\Debug\net6.0\win10-x64\Newtonsoft.Json.dll
 C:\Projects\c#\SystemInterrogator\bin\Debug\net6.0\win10-x64\System.CodeDom.dll
+C:\Projects\c#\SystemInterrogator\bin\Debug\net6.0\win10-x64\System.Data.SqlClient.dll
 C:\Projects\c#\SystemInterrogator\bin\Debug\net6.0\win10-x64\System.Management.dll
+C:\Projects\c#\SystemInterrogator\bin\Debug\net6.0\win10-x64\sni.dll
 C:\Projects\c#\SystemInterrogator\bin\Debug\net6.0\win10-x64\Microsoft.CSharp.dll
 C:\Projects\c#\SystemInterrogator\bin\Debug\net6.0\win10-x64\Microsoft.VisualBasic.Core.dll
 C:\Projects\c#\SystemInterrogator\bin\Debug\net6.0\win10-x64\Microsoft.VisualBasic.dll
@@ -228,6 +232,7 @@ C:\Projects\c#\SystemInterrogator\bin\Debug\net6.0\win10-x64\dbgshim.dll
 C:\Projects\c#\SystemInterrogator\bin\Debug\net6.0\win10-x64\hostfxr.dll
 C:\Projects\c#\SystemInterrogator\bin\Debug\net6.0\win10-x64\hostpolicy.dll
 C:\Projects\c#\SystemInterrogator\bin\Debug\net6.0\win10-x64\mscordaccore.dll
+C:\Projects\c#\SystemInterrogator\bin\Debug\net6.0\win10-x64\mscordaccore_amd64_amd64_6.0.121.56705.dll
 C:\Projects\c#\SystemInterrogator\bin\Debug\net6.0\win10-x64\mscordbi.dll
 C:\Projects\c#\SystemInterrogator\bin\Debug\net6.0\win10-x64\mscorrc.dll
 C:\Projects\c#\SystemInterrogator\bin\Debug\net6.0\win10-x64\msquic.dll
@@ -242,8 +247,3 @@ C:\Projects\c#\SystemInterrogator\obj\Debug\net6.0\win10-x64\SystemInterrogator.
 C:\Projects\c#\SystemInterrogator\obj\Debug\net6.0\win10-x64\ref\SystemInterrogator.dll
 C:\Projects\c#\SystemInterrogator\obj\Debug\net6.0\win10-x64\SystemInterrogator.pdb
 C:\Projects\c#\SystemInterrogator\obj\Debug\net6.0\win10-x64\SystemInterrogator.genruntimeconfig.cache
-C:\Projects\c#\SystemInterrogator\bin\Debug\net6.0\win10-x64\System.Data.SqlClient.dll
-C:\Projects\c#\SystemInterrogator\bin\Debug\net6.0\win10-x64\sni.dll
-C:\Projects\c#\SystemInterrogator\bin\Debug\net6.0\win10-x64\mscordaccore_amd64_amd64_6.0.121.56705.dll
-C:\Projects\c#\SystemInterrogator\bin\Debug\net6.0\win10-x64\ComputerInfo.dll
-C:\Projects\c#\SystemInterrogator\bin\Debug\net6.0\win10-x64\Microsoft.DotNet.PlatformAbstractions.dll
