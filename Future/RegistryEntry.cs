@@ -26,10 +26,10 @@ namespace Future.Registry{
         }
             
         private static void InitUTG(){
-            UTGInstallPath  = (string?)Microsoft.Win32.Registry.GetValue(UTGRegPath,UTGRegValueName, null);
+            UTGInstallPath = (string?)Microsoft.Win32.Registry.GetValue(UTGRegPath,UTGRegValueName, null);
             try{
                 UTGVersion = FileVersionInfo.GetVersionInfo(UTGInstallPath ?? "").FileVersion ?? "N/a";
-            }catch(FileNotFoundException ex){
+            }catch(Exception ex){
                 Console.Error.WriteLine(ex.Message);
                 UTGVersion = "N/a";
             }
@@ -38,7 +38,7 @@ namespace Future.Registry{
             FPOSInstallPath = (string?)Microsoft.Win32.Registry.GetValue(FPOSRegPath,FPOSRegValueName, null);
             try{
                 FPOSVersionInfo = FileVersionInfo.GetVersionInfo(FPOSInstallPath ?? "");
-            }catch(FileNotFoundException ex){
+            }catch(Exception ex){
                 Console.Error.WriteLine(ex.Message);
                 FPOSVersionInfo = null;
             }
