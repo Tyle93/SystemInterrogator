@@ -4,13 +4,11 @@ C:\Projects\c#\SystemInterrogator\bin\Debug\net6.0\win10-x64\SystemInterrogator.
 C:\Projects\c#\SystemInterrogator\bin\Debug\net6.0\win10-x64\SystemInterrogator.dll
 C:\Projects\c#\SystemInterrogator\bin\Debug\net6.0\win10-x64\ref\SystemInterrogator.dll
 C:\Projects\c#\SystemInterrogator\bin\Debug\net6.0\win10-x64\SystemInterrogator.pdb
-C:\Projects\c#\SystemInterrogator\bin\Debug\net6.0\win10-x64\ComputerInfo.dll
 C:\Projects\c#\SystemInterrogator\bin\Debug\net6.0\win10-x64\Google.Apis.dll
 C:\Projects\c#\SystemInterrogator\bin\Debug\net6.0\win10-x64\Google.Apis.Auth.PlatformServices.dll
 C:\Projects\c#\SystemInterrogator\bin\Debug\net6.0\win10-x64\Google.Apis.Auth.dll
 C:\Projects\c#\SystemInterrogator\bin\Debug\net6.0\win10-x64\Google.Apis.Core.dll
 C:\Projects\c#\SystemInterrogator\bin\Debug\net6.0\win10-x64\Google.Apis.Sheets.v4.dll
-C:\Projects\c#\SystemInterrogator\bin\Debug\net6.0\win10-x64\Microsoft.DotNet.PlatformAbstractions.dll
 C:\Projects\c#\SystemInterrogator\bin\Debug\net6.0\win10-x64\Newtonsoft.Json.dll
 C:\Projects\c#\SystemInterrogator\bin\Debug\net6.0\win10-x64\System.CodeDom.dll
 C:\Projects\c#\SystemInterrogator\bin\Debug\net6.0\win10-x64\System.Data.SqlClient.dll

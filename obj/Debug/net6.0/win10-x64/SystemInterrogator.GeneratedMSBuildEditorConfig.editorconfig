@@ -10,4 +10,4 @@ build_property.EnableSingleFileAnalyzer = true
 build_property.EnableTrimAnalyzer = true
 build_property.IncludeAllContentForSelfExtract = 
 build_property.RootNamespace = SystemInterrogator
-build_property.ProjectDir = c:\Projects\c#\SystemInterrogator\
+build_property.ProjectDir = C:\Projects\c#\SystemInterrogator\

@@ -11,8 +11,9 @@ namespace Google{
             rd.Values = toCellData(list);
             return rd;
         }
-        public static CellData toCellData<T>(T value){
+        public static CellData toCellData<T>(T? value){
             CellData cd = new CellData();
+            cd.UserEnteredValue = new ExtendedValue();
             cd.UserEnteredValue.StringValue = value?.ToString() ?? "Null";
             return cd;
         }
